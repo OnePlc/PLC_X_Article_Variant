@@ -1,0 +1,27 @@
+<?php
+# Only show partial if data is set
+if(array_key_exists('article_variant',$this->aPartialData)) {
+    # add address form fields
+    $aVariants = $this->aPartialData['article_variant']['oVariants'];
+    $aFields = $this->aPartialData['article_variant']['aFormFields'];
+
+    if(count($aVariants) == 0) { ?>
+        <div class="alert alert-info px-2 py-2">
+            <?=$this->translate('No Variant yet')?>
+        </div>
+    <?php } else { ?>
+        <ul class="list-group">
+        <?php
+        foreach($aVariants as $oHist) { ?>
+            <li class="list-group-item">
+                <div class="row">
+                    <?= $this->partial('partial/viewformfields', ['sFormName' => 'articlevariant-single', 'sTab' => 'variant-base', 'oItem' => $oHist, 'aFormFieldsByTab' => $aFields]); ?>
+                </div>
+            </li>
+        <?php
+        }
+        ?>
+        </ul>
+    <?php
+    }
+}
