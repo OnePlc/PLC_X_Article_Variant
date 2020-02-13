@@ -23,7 +23,6 @@ use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Where;
 use Laminas\Paginator\Paginator;
 use Laminas\Paginator\Adapter\DbSelect;
-use OnePlace\Variant\Model\Variant;
 
 class VariantTable extends CoreEntityTable {
 
