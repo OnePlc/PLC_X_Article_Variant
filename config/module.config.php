@@ -20,7 +20,7 @@ use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
-    # Article Module - Routes
+    # Variant Module - Routes
     'router' => [
         'routes' => [
             'article-variant' => [
@@ -37,8 +37,18 @@ return [
                     ],
                 ],
             ],
+            'article-variant-setup' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/article/variant/setup',
+                    'defaults' => [
+                        'controller' => Controller\InstallController::class,
+                        'action'     => 'checkdb',
+                    ],
+                ],
+            ],
         ],
-    ],
+    ], # Routes
 
     # View Settings
     'view_manager' => [

@@ -2,7 +2,7 @@
 /**
  * Variant.php - Variant Entity
  *
- * Entity Model for Article Variant
+ * Entity Model for Variant Variant
  *
  * @category Model
  * @package Article\Variant
@@ -19,7 +19,7 @@ use Application\Model\CoreEntityModel;
 
 class Variant extends CoreEntityModel {
     /**
-     * Article constructor.
+     * Variant constructor.
      *
      * @param AdapterInterface $oDbAdapter
      * @since 1.0.0
@@ -42,6 +42,7 @@ class Variant extends CoreEntityModel {
      */
     public function exchangeArray(array $aData) {
         $this->id = !empty($aData['Variant_ID']) ? $aData['Variant_ID'] : 0;
+        $this->label = !empty($aData['label']) ? $aData['label'] : '';
 
         $this->updateDynamicFields($aData);
     }
