@@ -21,7 +21,7 @@ msgid "Add Variant"
 msgstr "Variante erfassen"
 
 msgid "Label"
-msgstr "Titiel"
+msgstr "Titel"
 
 msgid "Price"
 msgstr "Verkaufspreis"
