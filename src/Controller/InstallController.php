@@ -90,6 +90,13 @@ class InstallController extends CoreUpdateController {
                     echo 'got data file for config '.$sSetupConfig;
                     $this->parseSQLInstallFile($sConfigData,CoreUpdateController::$oDbAdapter);
                 }
+                $sCustomLangFile = 'vendor/oneplace/oneplace-article-variant/data/de_DE_'.$sSetupConfig.'.po';
+                if(file_exists($sCustomLangFile)) {
+                    echo 'got lang file for config '.$sSetupConfig;
+                    copy($sCustomLangFile,'vendor/oneplace/oneplace-article-variant/language/de_DE.po');
+                    $sCustomLangFile = 'vendor/oneplace/oneplace-article-variant/data/de_DE_'.$sSetupConfig.'.mo';
+                    copy($sCustomLangFile,'vendor/oneplace/oneplace-article-variant/language/de_DE.mo');
+                }
             }
 
             $oModTbl = new TableGateway('core_module', CoreUpdateController::$oDbAdapter);

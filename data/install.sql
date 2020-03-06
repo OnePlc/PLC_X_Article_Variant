@@ -2,7 +2,7 @@
 -- Add new tab
 --
 INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `counter`, `sort_id`, `filter_check`, `filter_value`) VALUES
-('article-variant', 'article-single', 'Variant', 'Recent Article', 'fas fa-variant', '', '1', '', '');
+('article-variant', 'article-single', 'Variant', 'Executions', 'fas fa-boxes', '', '1', '', '');
 
 --
 -- Add new partial
@@ -46,7 +46,7 @@ INSERT INTO `core_form` (`form_key`, `label`, `entity_class`, `entity_tbl_class`
 -- add form tab
 --
 INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `counter`, `sort_id`, `filter_check`, `filter_value`) VALUES
-('variant-base', 'articlevariant-single', 'Variant', 'Recent Article', 'fas fa-variant', '', '1', '', '');
+('variant-base', 'articlevariant-single', 'Variant', 'Executions', 'fas fa-base', '', '1', '', '');
 
 --
 -- add address fields
