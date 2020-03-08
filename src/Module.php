@@ -32,7 +32,7 @@ class Module {
      *
      * @since 1.0.0
      */
-    const VERSION = '1.0.1.1';
+    const VERSION = '1.0.2';
     
     /**
      * Load module config file
@@ -55,6 +55,7 @@ class Module {
         # Register Filter Plugin Hook
         CoreEntityController::addHook('article-view-before',(object)['sFunction'=>'attachVariantForm','oItem'=>new VariantController($oDbAdapter,$tableGateway,$container)]);
         CoreEntityController::addHook('articlevariant-add-before-save',(object)['sFunction'=>'attachVariantToArticle','oItem'=>new VariantController($oDbAdapter,$tableGateway,$container)]);
+        CoreEntityController::addHook('article-single-api-list-before',(object)['sFunction'=>'attachVariantToArticleAPI','oItem'=>new VariantController($oDbAdapter,$tableGateway,$container)]);
     }
 
     /**

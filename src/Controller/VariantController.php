@@ -114,6 +114,28 @@ class VariantController extends CoreEntityController {
         return $oItem;
     }
 
+    public function attachVariantToArticleAPI($oItem) {
+        # Try to get adress table
+        try {
+            $oVariantTbl = CoreEntityController::$oServiceManager->get(VariantTable::class);
+        } catch(\RuntimeException $e) {
+            return [];
+        }
+        $oVariants = $oVariantTbl->fetchAll(false, ['article_idfs' => $oItem->getID()]);
+        $aResult = ['variants' => []];
+        if (count($oVariants) > 0) {
+            foreach ($oVariants as $oVar) {
+                $aResult['variants'][] = (object)[
+                    'id' => $oVar->getID(),
+                    'label' => $oVar->getLabel(),
+                    'price' => $oVar->price,
+                ];
+            }
+        }
+
+        return $aResult;
+    }
+
     public function addAction() {
         /**
          * You can just use the default function and customize it via hooks
