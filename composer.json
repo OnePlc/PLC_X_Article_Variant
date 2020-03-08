@@ -2,7 +2,7 @@
   "name": "oneplace/oneplace-article-variant",
   "description": "onePlace Article Variant Plugin. Manage your Article's variant",
   "type": "oneplace-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "BSD-3-Clause",
   "keywords": [
     "laminas",

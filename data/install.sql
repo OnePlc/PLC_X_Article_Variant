@@ -2,7 +2,7 @@
 -- Add new tab
 --
 INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `counter`, `sort_id`, `filter_check`, `filter_value`) VALUES
-('article-variant', 'article-single', 'Variant', 'Executions', 'fas fa-boxes', '', '1', '', '');
+('article-variant', 'article-single', 'Variant', 'Executions', 'fas fa-layer-group', '', '1', '', '');
 
 --
 -- Add new partial
@@ -14,7 +14,7 @@ INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `
 -- add button
 --
 INSERT INTO `core_form_button` (`Button_ID`, `label`, `icon`, `title`, `href`, `class`, `append`, `form`, `mode`, `filter_check`, `filter_value`) VALUES
-(NULL, 'Add Variant', 'fas fa-variant', 'Add Variant', '/article/variant/add/##ID##', 'primary', '', 'article-view', 'link', '', ''),
+(NULL, 'Add Variant', 'fas fa-layer-group', 'Add Variant', '/article/variant/add/##ID##', 'primary', '', 'article-view', 'link', '', ''),
 (NULL, 'Save Variant', 'fas fa-save', 'Save Variant', '#', 'primary saveForm', '', 'articlevariant-single', 'link', '', '');
 
 --
