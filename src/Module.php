@@ -56,6 +56,7 @@ class Module {
         CoreEntityController::addHook('article-view-before',(object)['sFunction'=>'attachVariantForm','oItem'=>new VariantController($oDbAdapter,$tableGateway,$container)]);
         CoreEntityController::addHook('articlevariant-add-before-save',(object)['sFunction'=>'attachVariantToArticle','oItem'=>new VariantController($oDbAdapter,$tableGateway,$container)]);
         CoreEntityController::addHook('article-single-api-list-before',(object)['sFunction'=>'attachVariantToArticleAPI','oItem'=>new VariantController($oDbAdapter,$tableGateway,$container)]);
+        CoreEntityController::addHook('article-single-api-get-before',(object)['sFunction'=>'attachVariantToArticleAPI','oItem'=>new VariantController($oDbAdapter,$tableGateway,$container)]);
     }
 
     /**
