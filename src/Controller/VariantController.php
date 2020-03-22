@@ -121,7 +121,8 @@ class VariantController extends CoreEntityController {
         } catch(\RuntimeException $e) {
             return [];
         }
-        $oVariants = $oVariantTbl->fetchAll(false, ['article_idfs' => $oItem->getID()]);
+        $sSort = 'web_sort_id ASC';
+        $oVariants = $oVariantTbl->fetchAll(false, ['article_idfs' => $oItem->getID()],$sSort);
         $aResult = ['variants' => []];
         if (count($oVariants) > 0) {
             foreach ($oVariants as $oVar) {
