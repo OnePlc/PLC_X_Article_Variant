@@ -76,4 +76,32 @@ class VariantTable extends CoreEntityTable {
     public function generateNew() {
         return new Variant($this->oTableGateway->getAdapter());
     }
+
+    /**
+     * Remove Variant
+     *
+     * @param $iVariantID
+     * @return mixed
+     * @since 1.0.4
+     */
+    public function removeSingle($iVariantID) {
+        $iVariantID = (int)$iVariantID;
+        if($iVariantID > 0) {
+            $oVar = $this->getSingle($iVariantID);
+            $this->oTableGateway->delete(['Variant_ID = '.$iVariantID]);
+
+            $oMetricTbl = new TableGateway('core_metric', CoreController::$oDbAdapter);
+            $oMetricTbl->insert([
+                'user_idfs' => CoreController::$oSession->oUser->getID(),
+                'action' => 'delete',
+                'type' => 'article',
+                'date' => date('Y-m-d H:i:s',time()),
+                'comment' => 'Variant removed - label: '.$oVar->label.', price: '.$oVar->price,
+            ]);
+
+            return true;
+        }
+
+        return false;
+    }
 }

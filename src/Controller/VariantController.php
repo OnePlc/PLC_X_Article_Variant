@@ -110,6 +110,12 @@ class VariantController extends CoreEntityController {
 
     public function attachVariantToArticle($oItem,$aRawData) {
         $oItem->article_idfs = $aRawData['ref_idfs'];
+        if (array_key_exists('article-currency', CoreEntityController::$aGlobalSettings)) {
+            if (CoreEntityController::$aGlobalSettings['article-currency'] == 'EUR') {
+                $oItem->price = str_replace(['.'], [''], $oItem->price);
+                $oItem->price = str_replace([','], ['.'], $oItem->price);
+            }
+        }
 
         return $oItem;
     }
@@ -151,5 +157,42 @@ class VariantController extends CoreEntityController {
         $iArticleID = $this->params()->fromRoute('id', 0);
 
         return $this->generateAddView('articlevariant','articlevariant-single','article','view',$iArticleID,['iArticleID'=>$iArticleID]);
+    }
+
+    public function editAction()
+    {
+        /**
+         * You can just use the default function and customize it via hooks
+         * or replace the entire function if you need more customization
+         *
+         * Hooks available:
+         *
+         * article-add-before (before show add form)
+         * article-add-before-save (before save)
+         * article-add-after-save (after save)
+         */
+        $iVariantID = $this->params()->fromRoute('id', 0);
+
+        $oVariantTbl = CoreEntityController::$oServiceManager->get(VariantTable::class);
+        $oVariant = $oVariantTbl->getSingle($iVariantID);
+
+        return $this->generateEditView('articlevariant','articlevariant-single','article','view',$oVariant->article_idfs,['iArticleID'=>$oVariant->article_idfs]);
+    }
+
+    public function deleteAction()
+    {
+        $iVariantID = $this->params()->fromRoute('id', 0);
+        $oVariantTbl = CoreEntityController::$oServiceManager->get(VariantTable::class);
+        $oVar = $oVariantTbl->getSingle($iVariantID);
+
+        if($oVariantTbl->removeSingle($iVariantID)) {
+            # Display Success Message and View New User
+            $this->flashMessenger()->addSuccessMessage('Variant removed successfully');
+            return $this->redirect()->toRoute('article',['action'=>'view','id'=>$oVar->article_idfs]);
+        } else {
+            # Display Success Message and View New User
+            $this->flashMessenger()->addSuccessMessage('Variant not found');
+            return $this->redirect()->toRoute('article');
+        }
     }
 }

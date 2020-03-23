@@ -1,4 +1,6 @@
 <?php
+use Application\Controller\CoreController;
+
 # Only show partial if data is set
 if(array_key_exists('article_variant',$this->aPartialData)) {
     # add address form fields
@@ -11,17 +13,65 @@ if(array_key_exists('article_variant',$this->aPartialData)) {
         </div>
     <?php } else { ?>
         <ul class="list-group">
-        <?php
-        foreach($aVariants as $oHist) { ?>
             <li class="list-group-item">
                 <div class="row">
-                    <?= $this->partial('partial/viewformfields', ['sFormName' => 'articlevariant-single', 'sTab' => 'variant-base', 'oItem' => $oHist, 'aFormFieldsByTab' => $aFields]); ?>
+                    <?= $this->partial('partial/viewformfields', ['bOnlyLabels'=>true,'sFormName' => 'articlevariant-single', 'sTab' => 'variant-base', 'aFormFieldsByTab' => $aFields]); ?>
+                    <div class="col-md-2">
+                        <?=$this->translate('Tasks')?>
+                    </div>
                 </div>
             </li>
-        <?php
-        }
-        ?>
+            <?php foreach($aVariants as $oPos) {
+                ?>
+                <li class="list-group-item">
+                    <div class="row">
+                        <?php foreach(array_keys($aFields) as $sTab) {
+                            $aFieldsByTab = $aFields[$sTab];
+                            foreach($aFieldsByTab as $oField) {
+                                if(property_exists($oPos,$oField->fieldkey)) {
+                                    $sFieldKey = $oField->fieldkey;
+                                    if($sFieldKey == 'article_idfs') {
+                                        continue;
+                                    }
+                                    ?>
+                                    <div class="<?=$oField->class?>">
+                                        <?php
+                                        if(is_object($oPos->$sFieldKey)) {
+                                            if(method_exists($oPos->$sFieldKey,'getLabel')) {
+                                                echo $oPos->$sFieldKey->getLabel();
+                                            }
+                                        } else {
+                                            switch($oField->type) {
+                                                case 'currency':
+                                                    if(CoreController::$aGlobalSettings['app-currency-sign-position'] == 'before') {
+                                                        echo CoreController::$aGlobalSettings['app-currency-sign'] . ' ';
+                                                    }
+                                                    echo number_format($oPos->$sFieldKey,2,CoreController::$aGlobalSettings['app-currency-decpoint'],CoreController::$aGlobalSettings['app-currency-thousandsep']);
+                                                    if(CoreController::$aGlobalSettings['app-currency-sign-position'] == 'after') {
+                                                        echo ' ' . CoreController::$aGlobalSettings['app-currency-sign'];
+                                                    }
+                                                    break;
+                                                default:
+                                                    echo $oPos->$sFieldKey;
+                                                    break;
+                                            }
+
+                                        }
+                                        ?>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                        } ?>
+                        <div class="col-md-2">
+                            <a href="/article/variant/edit/<?=$oPos->id?>" title="<?=$this->translate('Edit')?>"><i class="fas fa-edit"></i></a>
+                            | <a href="/article/variant/delete/<?=$oPos->id?>" title="<?=$this->translate('Delete')?>"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                </li>
+            <?php } ?>
         </ul>
+
     <?php
     }
 }else { ?>
